@@ -1,6 +1,6 @@
 # Sweater Bot
 
-Simple scraper to check for availability of a disney store sweater.
+Simple scraper to check for the availability of a disney store sweater.
 
 ## License
 
