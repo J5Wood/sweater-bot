@@ -1,32 +1,10 @@
 import * as cheerio from "cheerio";
+import * as dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import cron from "node-cron";
-// import nodemailer from "nodemailer";
+import nodemailer from "nodemailer";
 
-// const transporter = nodemailer.createTransport({
-//   service: "gmail",
-//   auth: {
-//     user: "reverenddrdoom@gmail.com",
-//     pass: "wevgegwarwctxlzq",
-//   },
-// });
-
-// const mailOptions = {
-//   from: "reverenddrdoom@gmail.com",
-//   to: "ithinktheylike.wood@gmail.com",
-//   subject: "ALERT",
-//   text: "IT'S TIME!",
-// };
-
-// transporter.sendMail(mailOptions, function (error, info) {
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log("Emai sent " + info.response);
-//   }
-// });
-
-console.log(cron);
 const URL =
   "https://www.shopdisney.com/mickey-mouse-and-friends-disney100-pullover-hoodie-for-adults-disneyland-2140057390632M.html";
 // const testURL =
@@ -61,4 +39,27 @@ async function getPage() {
 
 cron.schedule("*/30 * * * *", () => {
   fetch("http://localhost:3003/scrape");
+});
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAILFROM,
+    pass: process.env.EMAILPASSWORD,
+  },
+});
+
+const mailOptions = {
+  from: process.env.EMAILFROM,
+  to: process.env.EMAILTO,
+  subject: "ALERT",
+  text: "IT'S TIME!",
+};
+
+transporter.sendMail(mailOptions, function (error, info) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Email sent " + info.response);
+  }
 });
