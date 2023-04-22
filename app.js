@@ -1,6 +1,8 @@
 import * as cheerio from "cheerio";
 import express from "express";
+import cron from "node-cron";
 
+console.log(cron);
 const URL =
   "https://www.shopdisney.com/mickey-mouse-and-friends-disney100-pullover-hoodie-for-adults-disneyland-2140057390632M.html";
 // const testURL =
@@ -32,3 +34,7 @@ async function getPage() {
     console.log(error);
   }
 }
+
+cron.schedule("*/30 * * * *", () => {
+  fetch("http://localhost:3003/scrape");
+});
