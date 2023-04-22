@@ -1,6 +1,30 @@
 import * as cheerio from "cheerio";
 import express from "express";
 import cron from "node-cron";
+// import nodemailer from "nodemailer";
+
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: "reverenddrdoom@gmail.com",
+//     pass: "wevgegwarwctxlzq",
+//   },
+// });
+
+// const mailOptions = {
+//   from: "reverenddrdoom@gmail.com",
+//   to: "ithinktheylike.wood@gmail.com",
+//   subject: "ALERT",
+//   text: "IT'S TIME!",
+// };
+
+// transporter.sendMail(mailOptions, function (error, info) {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log("Emai sent " + info.response);
+//   }
+// });
 
 console.log(cron);
 const URL =
