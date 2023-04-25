@@ -30,7 +30,7 @@ async function getPage() {
     if (x.attribs.disabled === "") {
       console.log("Still sold out 😥");
     } else {
-      console.log("BUY BUY BUY");
+      sendAlert()
     }
   } catch (error) {
     console.log(error);
@@ -56,10 +56,12 @@ const mailOptions = {
   text: "IT'S TIME!",
 };
 
-transporter.sendMail(mailOptions, function (error, info) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Email sent " + info.response);
-  }
-});
+function sendAlert() {
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent " + info.response);
+    }
+  })
+}
