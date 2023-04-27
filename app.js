@@ -1,25 +1,13 @@
 import * as cheerio from "cheerio";
 import * as dotenv from "dotenv";
 dotenv.config();
-import express from "express";
 import cron from "node-cron";
 import nodemailer from "nodemailer";
 
 const URL =
   "https://www.shopdisney.com/mickey-mouse-and-friends-disney100-pullover-hoodie-for-adults-disneyland-2140057390632M.html";
 // const testURL =
-//   "https://www.shopdisney.com/mickey-and-minnie-mouse-kristen-swing-dress-for-women-by-lilly-pulitzer-walt-disney-world-2140107140489M.html?isProductSearch=0&plpPosition=11&guestFacing=Clothing-Women-Dresses%2520%2526%2520Skirts";
-
-const app = express();
-
-app.get("/scrape", async (req, res, next) => {
-  const answer = await getPage();
-  return res.json({ result: answer });
-});
-
-app.listen(3003, function () {
-  console.log(`Example app running on port ${this.address().port}`);
-});
+// "https://www.shopdisney.com/mickey-and-minnie-mouse-kristen-swing-dress-for-women-by-lilly-pulitzer-walt-disney-world-2140107140489M.html?isProductSearch=0&plpPosition=11&guestFacing=Clothing-Women-Dresses%2520%2526%2520Skirts";
 
 async function getPage() {
   try {
@@ -30,7 +18,7 @@ async function getPage() {
     if (x.attribs.disabled === "") {
       console.log("Still sold out 😥");
     } else {
-      sendAlert()
+      sendAlert();
     }
   } catch (error) {
     console.log(error);
@@ -38,7 +26,7 @@ async function getPage() {
 }
 
 cron.schedule("*/30 * * * *", () => {
-  fetch("http://localhost:3003/scrape");
+  getPage();
 });
 
 const transporter = nodemailer.createTransport({
@@ -52,8 +40,8 @@ const transporter = nodemailer.createTransport({
 const mailOptions = {
   from: process.env.EMAILFROM,
   to: process.env.EMAILTO,
-  subject: "ALERT",
-  text: "IT'S TIME!",
+  subject: "ALERT, ITEM IN STOCK",
+  text: `IT'S TIME! ${URL}`,
 };
 
 function sendAlert() {
@@ -63,5 +51,5 @@ function sendAlert() {
     } else {
       console.log("Email sent " + info.response);
     }
-  })
+  });
 }
