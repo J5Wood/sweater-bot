@@ -25,7 +25,7 @@ async function getPage() {
   }
 }
 
-cron.schedule("*/30 * * * *", () => {
+cron.schedule("*/1 * * * *", () => {
   getPage();
 });
 
