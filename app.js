@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import cron from "node-cron";
 import nodemailer from "nodemailer";
+import fetch from "node-fetch";
 
 const URL =
   "https://www.shopdisney.com/mickey-mouse-and-friends-disney100-pullover-hoodie-for-adults-disneyland-2140057390632M.html";
